@@ -42,7 +42,7 @@ extension Event: Decodable {
 		self.description = try container.decodeIfPresent(String.self, forKey: .description)
 		self.resourceURI = try container.decodeIfPresent(String.self, forKey: .resourceURI)
 		self.modified = try container.decodeIfPresent(String.self, forKey: .modified)
-		self.urls = try container.decodeIfPresent([Url].self, forKey: .resourceURI)
+		self.urls = try container.decodeIfPresent([Url].self, forKey: .urls)
 		self.start = try container.decodeIfPresent(String.self, forKey: .start)
 		self.end = try container.decodeIfPresent(String.self, forKey: .end)
 		self.thumbnail = try container.decodeIfPresent(Image.self, forKey: .thumbnail)

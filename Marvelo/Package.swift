@@ -94,7 +94,8 @@ package.targets += Module.targets {
 	
 	Module.APIClient.target {
 		$0.dependencies += [
-			.module(.Models)
+			.module(.Models),
+			.module(.Secrets)
 		]
 	}
 	//

@@ -6,19 +6,34 @@
 //
 
 import UIKit
-import Secrets
+import APIClient
+import Models
 
 class ViewController: UIViewController {
 
+	var characters: [Character] = []
+	var events: [Event] = []
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		
-		let label = UILabel(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
-		label.text = Secrets.abbyKey
-		self.view.addSubview(label)
-		
+		Task {
+			await fetchResults()
+			DispatchQueue.main.async {
+				self.view.backgroundColor = .green
+			}
+		}
 		self.view.backgroundColor = .red
+	}
+	
+	func fetchResults() async {
+		do {
+			let characters = await try APIClient.fetchCharacters()
+			let events = await try APIClient.fetchEvents()
+			print("\(characters.count) characters, \(events.count) events")
+		} catch {
+			print("failed")
+		}
 	}
 
 

@@ -9,7 +9,7 @@
       </FileRef>
       <Group
          location = "group:Sources"
-         name = "Sources">
+         name = "Documents">
          <FileRef
             location = "group:arch_link.txt">
          </FileRef>
