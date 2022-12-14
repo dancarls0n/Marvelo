@@ -1,0 +1,68 @@
+
+
+import Foundation
+public struct Event {
+	let id : Int?
+	let title : String?
+	let description : String?
+	let resourceURI : String?
+	let urls : [Url]?
+	let modified : String?
+	let start : String?
+	let end : String?
+	let thumbnail : Image?
+	let characters : CharacterList?
+	let comics : ComicList?
+	let stories : StoryList?
+	let series : SeriesList?
+
+	enum CodingKeys: String, CodingKey {
+
+		case id = "id"
+		case title = "title"
+		case description = "description"
+		case resourceURI = "resourceURI"
+		case urls = "urls"
+		case modified = "modified"
+		case start = "start"
+		case end = "end"
+		case thumbnail = "thumbnail"
+		case comics = "comics"
+		case stories = "stories"
+		case series = "series"
+		case characters = "characters"
+	}
+}
+
+extension Event: Decodable {
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+		self.title = try container.decodeIfPresent(String.self, forKey: .title)
+		self.description = try container.decodeIfPresent(String.self, forKey: .description)
+		self.resourceURI = try container.decodeIfPresent(String.self, forKey: .resourceURI)
+		self.modified = try container.decodeIfPresent(String.self, forKey: .modified)
+		self.urls = try container.decodeIfPresent([Url].self, forKey: .resourceURI)
+		self.start = try container.decodeIfPresent(String.self, forKey: .start)
+		self.end = try container.decodeIfPresent(String.self, forKey: .end)
+		self.thumbnail = try container.decodeIfPresent(Image.self, forKey: .thumbnail)
+		self.comics = try container.decodeIfPresent(ComicList.self, forKey: .comics)
+		self.series = try container.decodeIfPresent(SeriesList.self, forKey: .series)
+		self.stories = try container.decodeIfPresent(StoryList.self, forKey: .stories)
+		self.characters = try container.decodeIfPresent(CharacterList.self, forKey: .characters)
+	}
+}
+
+extension Event: Encodable {
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encodeIfPresent(id, forKey: .id)
+		try container.encodeIfPresent(title, forKey: .title)
+		try container.encodeIfPresent(description, forKey: .description)
+		try container.encodeIfPresent(thumbnail, forKey: .thumbnail)
+		try container.encodeIfPresent(comics, forKey: .comics)
+		try container.encodeIfPresent(series, forKey: .series)
+		try container.encodeIfPresent(stories, forKey: .stories)
+		try container.encodeIfPresent(characters, forKey: .characters)
+	}
+}
