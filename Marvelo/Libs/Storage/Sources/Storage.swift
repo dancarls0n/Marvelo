@@ -18,10 +18,21 @@ public struct Storage {
 	}
 	
 	public static func save(_ value: Codable, for key: Storage.Key) {
-		UserDefaults.standard.set(value, forKey: key.rawValue)
+		UserDefaults.standard.set(try? PropertyListEncoder().encode(value), forKey:key.rawValue)
 	}
 	
-	public static func fetch(_ key: Storage.Key) -> Any? {
-		 UserDefaults.standard.value(forKey: key.rawValue)
+	public static func fetchCharacters() -> [Character]? {
+		guard let data = UserDefaults.standard.value(forKey:Storage.Key.characters.rawValue) as? Data else { return nil }
+		return try? PropertyListDecoder().decode([Character].self, from: data)
+	}
+	
+	public static func fetchFavorites() -> FavoriteList? {
+		guard let data = UserDefaults.standard.value(forKey:Storage.Key.favorites.rawValue) as? Data else { return nil }
+		return try? PropertyListDecoder().decode(FavoriteList.self, from: data)
+	}
+	
+	public static func fetchEvents() -> [Event]? {
+		guard let data = UserDefaults.standard.value(forKey:Storage.Key.favorites.rawValue) as? Data else { return nil }
+		return try? PropertyListDecoder().decode([Event].self, from: data)
 	}
 }

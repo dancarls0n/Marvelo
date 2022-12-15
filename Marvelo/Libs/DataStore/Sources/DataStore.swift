@@ -12,6 +12,11 @@ import Models
 import Notifications
 import Storage
 
+// Improvement:
+// Define protocol (interaction functions)
+// Live one is this class
+// Pass in mock for testing
+
 // source of values for entire application
 public var store = DataStore()
 
@@ -40,17 +45,17 @@ public class DataStore {
 	
 	init () {
 		// fetch from storage
-		if let favoriteList = Storage.fetch(.favorites) as? FavoriteList {
+		if let favoriteList = Storage.fetchFavorites() {
 			self.favoriteList = favoriteList
 		} else {
 			Storage.save(favoriteList, for: .favorites)
 		}
-		if let characters = Storage.fetch(.characters) as? [Character] {
+		if let characters = Storage.fetchCharacters() {
 			self.characters = characters
 		} else {
 			Storage.save(characters, for: .characters)
 		}
-		if let events = Storage.fetch(.events) as? [Event] {
+		if let events = Storage.fetchEvents() {
 			self.events = events
 		} else {
 			Storage.save(events, for: .events)
@@ -61,9 +66,9 @@ public class DataStore {
 		Task { await fetchEventsFromAPI() }
 	}
 	
-	
 	// MARK: - AsyncStreams for subscribing to data changes
 	public var newCharacterStream: AsyncStream<Character>?
+	//look at RTC-Observer
 	public var characterStream: AsyncStream<Character>?
 	public var eventStream: AsyncStream<Event>?
 	public var favoriteStream: AsyncStream<FavoriteList>?
