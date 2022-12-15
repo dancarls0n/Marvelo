@@ -10,10 +10,10 @@ import Foundation
 
 public struct CharacterList {
     
-    let available: Int?
-    let returned: Int?
-    let collectionURI: String?
-    let items: [Character]?
+    public let available: Int?
+    public let returned: Int?
+    public let collectionURI: String?
+    public let items: [Character]?
     
     enum CodingKeys: String, CodingKey {
         case available
@@ -21,6 +21,19 @@ public struct CharacterList {
         case collectionURI
         case items
     }
+}
+
+extension CharacterList : Equatable, Hashable {
+	public static func == (lhs: CharacterList, rhs: CharacterList) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(available)
+		hasher.combine(returned)
+		hasher.combine(collectionURI)
+		hasher.combine(items)
+	}
 }
 
 extension CharacterList: Decodable {

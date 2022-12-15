@@ -10,10 +10,10 @@ import Foundation
 
 public struct StoryList {
     
-    let available: Int?
-    let returned: Int?
-    let collectionURI: String?
-    let items: [StorySummary]?
+    public let available: Int?
+    public let returned: Int?
+    public let collectionURI: String?
+    public let items: [StorySummary]?
     
     enum CodingKeys: String, CodingKey {
         case available

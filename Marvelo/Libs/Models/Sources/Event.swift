@@ -2,19 +2,19 @@
 
 import Foundation
 public struct Event {
-	let id : Int?
-	let title : String?
-	let description : String?
-	let resourceURI : String?
-	let urls : [Url]?
-	let modified : String?
-	let start : String?
-	let end : String?
-	let thumbnail : Image?
-	let characters : CharacterList?
-	let comics : ComicList?
-	let stories : StoryList?
-	let series : SeriesList?
+	public let id : Int?
+	public let title : String?
+	public let description : String?
+	public let resourceURI : String?
+	public let urls : [Url]?
+	public let modified : String?
+	public let start : String?
+	public let end : String?
+	public let thumbnail : Image?
+	public let characters : CharacterList?
+	public let comics : ComicList?
+	public let stories : StoryList?
+	public let series : SeriesList?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -31,6 +31,23 @@ public struct Event {
 		case stories = "stories"
 		case series = "series"
 		case characters = "characters"
+	}
+}
+
+extension Event : Equatable, Hashable {
+	public static func == (lhs: Event, rhs: Event) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
+		hasher.combine(title)
+		hasher.combine(description)
+		hasher.combine(start)
+		hasher.combine(end)
+		hasher.combine(thumbnail)
+		hasher.combine(modified)
+		hasher.combine(characters)
 	}
 }
 

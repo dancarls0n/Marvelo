@@ -9,21 +9,23 @@
 import Foundation
 
 public struct Character {
-    
-    let id: Int?
-    let name: String?
-    let description: String?
-    let thumbnail: Image?
-    let comics: ComicList?
-    let series: SeriesList?
-    let stories: StoryList?
-    let events: EventList?
-    
+	
+    public let id: Int?
+    public let name: String?
+    public let description: String?
+    public let thumbnail: Image?
+		public let modified : String?
+    public let comics: ComicList?
+    public let series: SeriesList?
+    public let stories: StoryList?
+    public let events: EventList?
+  	
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case description
         case thumbnail
+				case modified
         case comics
         case series
         case stories
@@ -31,11 +33,27 @@ public struct Character {
     }
 }
 
+extension Character : Equatable, Hashable {
+	public static func == (lhs: Character, rhs: Character) -> Bool {
+			return lhs.hashValue == rhs.hashValue
+		}
+		
+		public func hash(into hasher: inout Hasher) {
+			hasher.combine(id)
+			hasher.combine(name)
+			hasher.combine(description)
+			hasher.combine(thumbnail)
+			hasher.combine(modified)
+			hasher.combine(events)
+		}
+}
+
 extension Character: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decodeIfPresent(Int.self, forKey: .id)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
+				self.modified = try container.decodeIfPresent(String.self, forKey: .modified)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.thumbnail = try container.decodeIfPresent(Image.self, forKey: .thumbnail)
         self.comics = try container.decodeIfPresent(ComicList.self, forKey: .comics)

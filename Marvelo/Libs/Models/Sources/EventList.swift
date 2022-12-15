@@ -10,10 +10,10 @@ import Foundation
 
 public struct EventList {
     
-    let available: Int?
-    let returned: Int?
-    let collectionURI: String?
-    let items: [Event]?
+    public let available: Int?
+    public let returned: Int?
+    public let collectionURI: String?
+    public let items: [Event]?
     
     enum CodingKeys: String, CodingKey {
         case available
@@ -21,6 +21,19 @@ public struct EventList {
         case collectionURI
         case items
     }
+}
+
+extension EventList : Equatable, Hashable {
+	public static func == (lhs: EventList, rhs: EventList) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(available)
+		hasher.combine(returned)
+		hasher.combine(collectionURI)
+		hasher.combine(items)
+	}
 }
 
 extension EventList: Decodable {
