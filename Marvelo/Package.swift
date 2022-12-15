@@ -12,6 +12,7 @@ var package = Package(
 enum Module: String, CaseIterable {
 	case APIClient
 	case Characters
+	case DataStore
 	case Events
 	case Favorites
 	case Models
@@ -107,9 +108,21 @@ package.targets += Module.targets {
 	Module.Models.target {
 		$0.dependencies = []
 	}
+		
+	Module.DataStore.target {
+		$0.dependencies += [
+			.module(.APIClient),
+			.module(.Models),
+			.module(.Notifications),
+			.module(.Storage)
+		]
+	}
 	
 	Module.Characters.target {
-		$0.dependencies = []
+		$0.dependencies += [
+			.module(.DataStore),
+			.module(.Models)
+		]
 	}
 	
 	Module.Events.target {
