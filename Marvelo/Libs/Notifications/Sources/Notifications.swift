@@ -7,6 +7,6 @@
 import Ably
 import Foundation
 
-public structNotifications {
+public struct Notifications {
 	
 }
