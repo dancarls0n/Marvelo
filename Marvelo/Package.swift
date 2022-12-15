@@ -121,7 +121,8 @@ package.targets += Module.targets {
 	Module.Characters.target {
 		$0.dependencies += [
 			.module(.DataStore),
-			.module(.Models)
+			.module(.Models),
+			.product(name: "Kingfisher", package: "Kingfisher")
 		]
 	}
 	

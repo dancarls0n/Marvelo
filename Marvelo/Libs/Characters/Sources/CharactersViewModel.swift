@@ -11,7 +11,7 @@ import DataStore
 import Models
 import UIKit
 
-class CharactersViewModel: NSObject {
+public class CharactersViewModel: NSObject {
 		
 	// TODO: Bind to data layer to get updates upon character or favorites changes
 	
@@ -19,6 +19,8 @@ class CharactersViewModel: NSObject {
 	 
 	init(dataStore: DataStore) {
 		self.dataStore = dataStore
+//		self.getCharactersFromDataStore()
+		//subscribe to async streams from datastore
 	}
 	
 	public func getCharactersFromDataStore() {
@@ -27,6 +29,10 @@ class CharactersViewModel: NSObject {
 			self.modelizeCharacters(characters: characters)
 		}
 	}
+	
+	//asyncStreamCallback
+	// remodelize my characters
+	// redraw the tableview (or the cells)
 
 	var reloadTableView: (() -> Void)?
 	
@@ -39,7 +45,6 @@ class CharactersViewModel: NSObject {
 			reloadTableView?()
 		}
 	}
-	
 
 	func modelizeCharacters(characters: [Character]) {
 		self.characters = characters
@@ -53,7 +58,7 @@ class CharactersViewModel: NSObject {
 	func favoriteCharacter(id: Int?) {
 		guard let characterID = id else { return }
 		Task {
-			await dataStore.setFavorite(id: characterID)
+			await dataStore.setFavorite(characterID: characterID)
 		}
 	}
 	
@@ -64,7 +69,7 @@ class CharactersViewModel: NSObject {
 		let storyCount: Int = character.stories?.items?.count ?? 0
 		let stories = "\(storyCount) stories"
 		let date = character.modified ?? ""
-		let characterInFavorites = favoritesList.favorites.contains(where: { $0.favoriteID == character.id })
+		let characterInFavorites = favoritesList.favorites.contains(where: { $0.characterID == character.id })
 		let starImage: UIImage = characterInFavorites ? UIImage(systemName: "star.filled")! : UIImage(systemName: "star")!
 		
 		return CharacterCellViewModel(avatarImageUrl: avatarUrl,

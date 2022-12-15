@@ -7,21 +7,29 @@
 
 import UIKit
 
-class CharactersViewController: UIViewController {
-	var tableView: UITableView!
+import DataStore
+
+public class CharactersViewController: UIViewController {
 	
-	override func viewDidLoad() {
+	var tableView: UITableView!
+	lazy var viewModel = {
+		CharactersViewModel(dataStore: store)
+	}()
+	
+	override public func viewDidLoad() {
 		super.viewDidLoad()
+		tableView = UITableView(frame: self.view.bounds)
+		tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.view.addSubview(tableView)
 		initView()
 		initViewModel()
 	}
 	
-	func initView() {
-		// TableView customization
+	func initView() {		
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.backgroundColor = UIColor(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1))
-		tableView.separatorColor = .white
+		tableView.backgroundColor = .white
+		tableView.separatorColor = .gray
 		tableView.separatorStyle = .singleLine
 		tableView.tableFooterView = UIView()
 		tableView.allowsSelection = false
@@ -30,14 +38,20 @@ class CharactersViewController: UIViewController {
 	}
 	
 	func initViewModel() {
-		/* Add code later */
+		viewModel.getCharactersFromDataStore()
+		viewModel.reloadTableView = {
+			[weak self] in
+			DispatchQueue.main.async {
+				self?.tableView.reloadData()
+			}
+		}
 	}
 }
 
 // MARK: - UITableViewDelegate
 
 extension CharactersViewController: UITableViewDelegate {
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 130
 	}
 }
@@ -45,12 +59,14 @@ extension CharactersViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension CharactersViewController: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 0
+	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.characters.count
 	}
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell else { fatalError("cell does not exists") }
+	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell else { fatalError("xib does not exists") }
+		let cellVM = viewModel.getCellViewModel(at: indexPath)
+		cell.viewModel = cellVM
 		return cell
 	}
 }
