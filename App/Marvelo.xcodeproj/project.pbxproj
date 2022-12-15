@@ -16,6 +16,12 @@
 		B4905A7F29496FF300B08179 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4905A7E29496FF300B08179 /* Assets.xcassets */; };
 		B4905A8229496FF300B08179 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4905A8029496FF300B08179 /* LaunchScreen.storyboard */; };
 		B4905A8D29496FF300B08179 /* MarveloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4905A8C29496FF300B08179 /* MarveloTests.swift */; };
+		B4BF0FDF294BC74100758F2D /* Characters in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FDE294BC74100758F2D /* Characters */; };
+		B4BF0FE1294BC74100758F2D /* DataStore in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE0294BC74100758F2D /* DataStore */; };
+		B4BF0FE3294BC74100758F2D /* Events in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE2294BC74100758F2D /* Events */; };
+		B4BF0FE5294BC74100758F2D /* Favorites in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE4294BC74100758F2D /* Favorites */; };
+		B4BF0FE7294BC74100758F2D /* Notifications in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE6294BC74100758F2D /* Notifications */; };
+		B4BF0FE9294BC74100758F2D /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE8294BC74100758F2D /* Storage */; };
 		B4D9A512294A550B00DE79AF /* Secrets in Frameworks */ = {isa = PBXBuildFile; productRef = B4D9A511294A550B00DE79AF /* Secrets */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +55,13 @@
 			files = (
 				B4D9A512294A550B00DE79AF /* Secrets in Frameworks */,
 				B4531AB9294A506D0043A5C4 /* Models in Frameworks */,
+				B4BF0FDF294BC74100758F2D /* Characters in Frameworks */,
+				B4BF0FE3294BC74100758F2D /* Events in Frameworks */,
+				B4BF0FE5294BC74100758F2D /* Favorites in Frameworks */,
 				B4531AB7294A506D0043A5C4 /* APIClient in Frameworks */,
+				B4BF0FE9294BC74100758F2D /* Storage in Frameworks */,
+				B4BF0FE1294BC74100758F2D /* DataStore in Frameworks */,
+				B4BF0FE7294BC74100758F2D /* Notifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +143,12 @@
 				B4531AB6294A506D0043A5C4 /* APIClient */,
 				B4531AB8294A506D0043A5C4 /* Models */,
 				B4D9A511294A550B00DE79AF /* Secrets */,
+				B4BF0FDE294BC74100758F2D /* Characters */,
+				B4BF0FE0294BC74100758F2D /* DataStore */,
+				B4BF0FE2294BC74100758F2D /* Events */,
+				B4BF0FE4294BC74100758F2D /* Favorites */,
+				B4BF0FE6294BC74100758F2D /* Notifications */,
+				B4BF0FE8294BC74100758F2D /* Storage */,
 			);
 			productName = Marvelo;
 			productReference = B4905A7229496FF200B08179 /* Marvelo.app */;
@@ -511,6 +529,30 @@
 		B4531AB8294A506D0043A5C4 /* Models */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Models;
+		};
+		B4BF0FDE294BC74100758F2D /* Characters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Characters;
+		};
+		B4BF0FE0294BC74100758F2D /* DataStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataStore;
+		};
+		B4BF0FE2294BC74100758F2D /* Events */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Events;
+		};
+		B4BF0FE4294BC74100758F2D /* Favorites */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Favorites;
+		};
+		B4BF0FE6294BC74100758F2D /* Notifications */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Notifications;
+		};
+		B4BF0FE8294BC74100758F2D /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
 		};
 		B4D9A511294A550B00DE79AF /* Secrets */ = {
 			isa = XCSwiftPackageProductDependency;
