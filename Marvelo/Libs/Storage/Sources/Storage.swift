@@ -6,33 +6,28 @@
 //
 
 import Foundation
-
 import Models
 
-public struct Storage {
-	
-	public enum Key : String {
-		case characters
-		case events
-		case favorites
-	}
-	
-	public static func save(_ value: Codable, for key: Storage.Key) {
-		UserDefaults.standard.set(try? PropertyListEncoder().encode(value), forKey:key.rawValue)
-	}
-	
-	public static func fetchCharacters() -> [Character]? {
-		guard let data = UserDefaults.standard.value(forKey:Storage.Key.characters.rawValue) as? Data else { return nil }
-		return try? PropertyListDecoder().decode([Character].self, from: data)
-	}
-	
-	public static func fetchFavorites() -> FavoriteList? {
-		guard let data = UserDefaults.standard.value(forKey:Storage.Key.favorites.rawValue) as? Data else { return nil }
-		return try? PropertyListDecoder().decode(FavoriteList.self, from: data)
-	}
-	
-	public static func fetchEvents() -> [Event]? {
-		guard let data = UserDefaults.standard.value(forKey:Storage.Key.favorites.rawValue) as? Data else { return nil }
-		return try? PropertyListDecoder().decode([Event].self, from: data)
-	}
+public struct Storage: StorageProtocol {
+
+    public init() { }
+
+    public func save(_ value: Codable, for key: StorageKey) {
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(value), forKey:key.rawValue)
+    }
+
+    public func fetchCharacters() -> [Character]? {
+        guard let data = UserDefaults.standard.value(forKey: StorageKey.characters.rawValue) as? Data else { return nil }
+        return try? PropertyListDecoder().decode([Character].self, from: data)
+    }
+
+    public func fetchFavorites() -> FavoriteList? {
+        guard let data = UserDefaults.standard.value(forKey: StorageKey.favorites.rawValue) as? Data else { return nil }
+        return try? PropertyListDecoder().decode(FavoriteList.self, from: data)
+    }
+
+    public func fetchEvents() -> [Event]? {
+        guard let data = UserDefaults.standard.value(forKey: StorageKey.favorites.rawValue) as? Data else { return nil }
+        return try? PropertyListDecoder().decode([Event].self, from: data)
+    }
 }

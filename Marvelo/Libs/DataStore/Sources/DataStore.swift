@@ -18,47 +18,58 @@ import Storage
 // Pass in mock for testing
 
 // source of values for entire application
-public var store = DataStore()
+public var store = DataStore(dependencies: DataStore.Dependencies(storage: Storage()))
+
+extension DataStore {
+    struct Dependencies {
+        var storage: StorageProtocol
+    }
+}
 
 public class DataStore {
+
+    var dependencies: Dependencies
+    private var storage: StorageProtocol { dependencies.storage }
 	
 	var favoriteList: FavoriteList = FavoriteList() {
 		didSet {
-			Storage.save(favoriteList, for: .favorites)
+			storage.save(favoriteList, for: .favorites)
 			//TODO: publish to asyncStream for Favorites
 			//TODO: publish to asyncStream for Characters
 		}
 	}
 	var characters: [Character] = [] {
 		didSet {
-			Storage.save(characters, for: .characters)
+			storage.save(characters, for: .characters)
 			//TODO: publish to asyncStream for Characters
 			//TODO: more inteligent stream for only changed characters?
 		}
 	}
 	var events: [Event] = [] {
 		didSet {
-			Storage.save(events, for: .events)
+			storage.save(events, for: .events)
 			//TODO: publish to asyncStream for Events
 		}
 	}
 	
-	init () {
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
 		// fetch from storage
-		if let favoriteList = Storage.fetchFavorites() {
+		if let favoriteList = storage.fetchFavorites() {
 			self.favoriteList = favoriteList
 		} else {
-			Storage.save(favoriteList, for: .favorites)
+			storage.save(favoriteList, for: .favorites)
 		}
-		if let characters = Storage.fetchCharacters() {
+		if let characters = storage.fetchCharacters() {
 			self.characters = characters
 		} else {
-			Storage.save(characters, for: .characters)
+            storage.save(characters, for: .characters)
 		}
-		if let events = Storage.fetchEvents() {
+		if let events = storage.fetchEvents() {
 			self.events = events
 		} else {
-			Storage.save(events, for: .events)
+            storage.save(events, for: .events)
 		}
 		
 		// update from api
