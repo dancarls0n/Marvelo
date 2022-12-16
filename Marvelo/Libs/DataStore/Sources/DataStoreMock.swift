@@ -10,10 +10,9 @@ import Models
 
 public struct DataStoreMock {
 
-    public var getCharactersClosure: (_ refetch: Bool) async -> [Character]
-    public var getEventsClosure: (_ refetch: Bool) async -> [Event]
+    public var getCharactersClosure: (_ refetch: Bool) -> [Character]
+    public var getEventsClosure: (_ refetch: Bool) -> [Event]
     public var getFavoritesListClosure: () -> FavoriteList
-
 
     public var updateClosure: (_ updatedCharacter: Character) -> Void
     public var setFavoriteClosure: (_ characterID: Int) async -> Void
@@ -21,16 +20,20 @@ public struct DataStoreMock {
 
     public var fetchCharactersFromAPIClosure: () async -> Void
     public var fetchEventsFromAPIClosure: () async -> Void
+
+    public var charactersStreamClosure: () -> AsyncStream<[Character]>
+    public var eventsStreamClosure: () -> AsyncStream<[Event]>
+    public var favoritesStreamClosure: () -> AsyncStream<FavoriteList>
 }
 
 extension DataStoreMock: DataStore {
 
-    public func getCharacters(refetch: Bool) async -> [Models.Character] {
-        return await getCharactersClosure(refetch)
+    public func getCharacters(refetch: Bool) -> [Models.Character] {
+        return getCharactersClosure(refetch)
     }
 
-    public func getEvents(refetch: Bool) async -> [Models.Event] {
-       return await getEventsClosure(refetch)
+    public func getEvents(refetch: Bool) -> [Models.Event] {
+       return getEventsClosure(refetch)
     }
 
     public func getFavoritesList() -> Models.FavoriteList {
@@ -55,5 +58,17 @@ extension DataStoreMock: DataStore {
 
     public func fetchEventsFromAPI() async {
         return await fetchEventsFromAPIClosure()
+    }
+
+    public func charactersStream() -> AsyncStream<[Character]> {
+        return charactersStreamClosure()
+    }
+
+    public func eventsStream() -> AsyncStream<[Event]> {
+        return eventsStreamClosure()
+    }
+
+    public func favoritesStream() -> AsyncStream<FavoriteList> {
+        return favoritesStreamClosure()
     }
 }

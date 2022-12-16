@@ -23,32 +23,35 @@ extension DataStoreLive {
     }
 }
 
-public class DataStoreLive {
+public class DataStoreLive: DataStore {
 
-    var dependencies: Dependencies
+    private var dependencies: Dependencies
     private var storage: Storage { dependencies.storage }
-	
+
+    private var charactersStreamContinuations: [UUID: AsyncStream<[Character]>.Continuation] = [:]
+    private var eventsStreamContinuations: [UUID: AsyncStream<[Event]>.Continuation] = [:]
+    private var favoriteStreamContinuations: [UUID: AsyncStream<FavoriteList>.Continuation] = [:]
+
 	var favoriteList: FavoriteList = FavoriteList() {
 		didSet {
 			storage.save(favoriteList, for: .favorites)
-			//TODO: publish to asyncStream for Favorites
-			//TODO: publish to asyncStream for Characters
+			publish(favoriteList: favoriteList)
 		}
 	}
 	var characters: [Character] = [] {
 		didSet {
 			storage.save(characters, for: .characters)
-			//TODO: publish to asyncStream for Characters
 			//TODO: more inteligent stream for only changed characters?
+            publish(characters: characters)
 		}
 	}
 	var events: [Event] = [] {
 		didSet {
 			storage.save(events, for: .events)
-			//TODO: publish to asyncStream for Events
+            publish(events: events)
 		}
 	}
-	
+
     public init(dependencies: Dependencies) {
         self.dependencies = dependencies
 
@@ -73,6 +76,19 @@ public class DataStoreLive {
 		Task { await fetchCharactersFromAPI() }
 		Task { await fetchEventsFromAPI() }
 	}
+
+    // MARK: - Async Streams
+    private func publish(characters: [Character]) {
+        charactersStreamContinuations.values.forEach { $0.yield(characters) }
+    }
+
+    private func publish(events: [Event]) {
+        eventsStreamContinuations.values.forEach { $0.yield(events) }
+    }
+
+    private func publish(favoriteList: FavoriteList) {
+        favoriteStreamContinuations.values.forEach { $0.yield(favoriteList) }
+    }
 	
 	// MARK: - AsyncStreams for subscribing to data changes
 	public var newCharacterStream: AsyncStream<Character>?
@@ -83,20 +99,24 @@ public class DataStoreLive {
 }
 
 
-extension DataStoreLive: DataStore {
+extension DataStoreLive {
 
     // MARK: - external api for data consumption
 
-	public func getCharacters(refetch: Bool = false) async -> [Character] {
-		guard refetch else { return characters }
-		await fetchCharactersFromAPI()
-		return characters
+	public func getCharacters(refetch: Bool = false) -> [Character] {
+        if refetch {
+            Task { await fetchCharactersFromAPI() }
+        }
+        // Return persisted characters synchronously, ahead of refetch.
+        return characters
 	}
 	
-	public func getEvents(refetch: Bool = false) async -> [Event] {
-		guard refetch else { return events }
-		await fetchEventsFromAPI()
-		return events
+	public func getEvents(refetch: Bool = false) -> [Event] {
+        if refetch {
+            Task { await fetchEventsFromAPI() }
+        }
+        // Return persisted events synchronously, ahead of refetch.
+        return events
 	}
 	
 	public func getFavoritesList() -> FavoriteList {
@@ -149,5 +169,36 @@ extension DataStoreLive: DataStore {
 				self.events = events
 			} catch {}
 	}
-	
+
+    // MARK: - AsyncStreams for subscribing to data changes
+
+    public func charactersStream() -> AsyncStream<[Character]> {
+        let continuationID = UUID()
+        return AsyncStream { continuation in
+            charactersStreamContinuations[continuationID] = continuation
+            continuation.onTermination = { [weak self] _ in
+                self?.charactersStreamContinuations[continuationID] = nil
+            }
+        }
+    }
+
+    public func eventsStream() -> AsyncStream<[Event]> {
+        let continuationID = UUID()
+        return AsyncStream { continuation in
+            eventsStreamContinuations[continuationID] = continuation
+            continuation.onTermination = { [weak self] _ in
+                self?.eventsStreamContinuations[continuationID] = nil
+            }
+        }
+    }
+
+    public func favoritesStream() -> AsyncStream<FavoriteList> {
+        let continuationID = UUID()
+        return AsyncStream { continuation in
+            favoriteStreamContinuations[continuationID] = continuation
+            continuation.onTermination = { [weak self] _ in
+                self?.favoriteStreamContinuations[continuationID] = nil
+            }
+        }
+    }
 }

@@ -36,6 +36,12 @@ public class CharactersViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+        Task { @MainActor in
+            viewModel.stopMonitoringDataStore()
+        }
+    }
     
 	override public func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,6 +50,7 @@ public class CharactersViewController: UIViewController {
 		self.view.addSubview(tableView)
 		initView()
 		initViewModel()
+        viewModel.startMonitoringDataStore()
 	}
 	
 	func initView() {		
@@ -61,7 +68,6 @@ public class CharactersViewController: UIViewController {
 	}
 	
 	func initViewModel() {
-		viewModel.getCharactersFromDataStore()
 		viewModel.reloadTableView = {
 			[weak self] in
 			DispatchQueue.main.async {

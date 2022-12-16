@@ -11,28 +11,32 @@ import DataStore
 import Models
 import UIKit
 
+@MainActor
 public class CharactersViewModel: NSObject {
 		
 	// TODO: Bind to data layer to get updates upon character or favorites changes
 	
 	private var dataStore: DataStore
+    private var charactersStreamTask: Task<Void, Never>?
 	 
 	init(dataStore: DataStore) {
 		self.dataStore = dataStore
-//		self.getCharactersFromDataStore()
-		//subscribe to async streams from datastore
 	}
-	
-	public func getCharactersFromDataStore() {
-		Task {
-            let characters = await dataStore.getCharacters(refetch: false)
-			self.modelizeCharacters(characters: characters)
-		}
-	}
-	
-	//asyncStreamCallback
-	// remodelize my characters
-	// redraw the tableview (or the cells)
+
+    func startMonitoringDataStore() {
+        charactersStreamTask = Task {
+            let characters = dataStore.getCharacters(refetch: false)
+            modelizeCharacters(characters: characters)
+            for await updatedCharacters in dataStore.charactersStream() {
+                modelizeCharacters(characters: updatedCharacters)
+            }
+        }
+    }
+
+    func stopMonitoringDataStore() {
+        charactersStreamTask?.cancel()
+        charactersStreamTask = nil
+    }
 
 	var reloadTableView: (() -> Void)?
 	
