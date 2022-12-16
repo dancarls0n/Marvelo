@@ -120,7 +120,7 @@ class CharacterCell: UITableViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		avatarImageView = nil
+        avatarImageView.image = nil
 		titleLabel.text = nil
 		descriptionLabel.text = nil
 		storiesLabel.text = nil
