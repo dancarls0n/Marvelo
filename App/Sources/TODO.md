@@ -1,15 +1,48 @@
 #  TODO
 
+### TabBar
+### Favorites
+### Events
+### Character
+- Detail View
+- Character filter
+
+### Header View
+
+## Notification
+- NotificationView
+- NotificationClient?
+- register (AppDelegate)
+- unregister (AppDelegate)
+
+### Data Layer
+- make a 
+- asyncSequence - favoriteChanges
+- asyncSequence - characterChanges
+- asyncSequence - eventChanges
+
+## Architecture Optimization
+
+## Tests
+
+
+
+
+
+# DONE
+
+## Project Setup
+## Package Setup
 
 ## Character
-## Favorites
-## Events
-## Notificaiton
-- NotificationView
-- NotificationClient
-- register
-- unregister
-- newNotification
+
+## Models
+- Character
+- Events
+
+## Networking
+- fetch events
+- fetch characters
 
 ## Data Layer
 
@@ -22,30 +55,5 @@ fetchFavorites
 fetchCharacters
 fetchEvents
 
-asnycSequence - favoriteChanges
-asnycSequence - characterChanges
-
-
 ## Storage
 https://stackoverflow.com/questions/44876420/save-struct-to-userdefaults
-
-## Tests
-
-## Optimization
-- should the data layer be responsible for saving and fetching everything, or should the individual elements be
-
-
-# DONE
-
-## Project Setup
-## Package Setup
-
-
-## Models
-- Character
-- Events
-
-## Networking
-- fetch events
-- fetch characters
-
