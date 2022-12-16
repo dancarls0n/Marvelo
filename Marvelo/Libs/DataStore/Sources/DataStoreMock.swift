@@ -23,7 +23,7 @@ public struct DataStoreMock {
     public var fetchEventsFromAPIClosure: () async -> Void
 }
 
-extension DataStoreMock: DataStoreProtocol {
+extension DataStoreMock: DataStore {
 
     public func getCharacters(refetch: Bool) async -> [Models.Character] {
         return await getCharactersClosure(refetch)

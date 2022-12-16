@@ -13,10 +13,10 @@ public class LiveDependencies {
 
     public static let shared = LiveDependencies()
 
-    public private(set) var dataStore: DataStoreProtocol
+    public private(set) var dataStore: DataStore
 
     private init() {
-        let storage: StorageProtocol = Storage()
-        self.dataStore = DataStore(dependencies: DataStore.Dependencies(storage: storage))
+        let storage: Storage = StorageLive()
+        self.dataStore = DataStoreLive(dependencies: DataStoreLive.Dependencies(storage: storage))
     }
 }

@@ -11,9 +11,9 @@ import DataStore
 
 extension CharactersViewController {
     public struct Dependencies {
-        public var dataStore: DataStoreProtocol
+        public var dataStore: DataStore
 
-        public init(dataStore: DataStoreProtocol) {
+        public init(dataStore: DataStore) {
             self.dataStore = dataStore
         }
     }

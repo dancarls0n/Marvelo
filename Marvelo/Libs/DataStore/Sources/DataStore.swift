@@ -1,5 +1,5 @@
 //
-//  DataStoreProtocol.swift
+//  DataStore.swift
 //
 //
 //  Created by Jeff Pedersen on 2022-12-16.
@@ -8,7 +8,7 @@
 import Foundation
 import Models
 
-public protocol DataStoreProtocol {
+public protocol DataStore {
     // MARK: external api for data consumption
     func getCharacters(refetch: Bool) async -> [Character]
     func getEvents(refetch: Bool) async -> [Event]

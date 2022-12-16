@@ -16,7 +16,7 @@ public struct StorageMock {
     public var fetchEventsClosure: () -> [Models.Event]? = { nil }
 }
 
-extension StorageMock: StorageProtocol {
+extension StorageMock: Storage {
 
     public func save(_ value: Codable, for key: StorageKey) {
         saveClosure(value, key)

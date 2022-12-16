@@ -13,20 +13,20 @@ import Models
 import Notifications
 import Storage
 
-extension DataStore {
+extension DataStoreLive {
     public struct Dependencies {
-        public var storage: StorageProtocol
+        public var storage: Storage
 
-        public init(storage: StorageProtocol) {
+        public init(storage: Storage) {
             self.storage = storage
         }
     }
 }
 
-public class DataStore {
+public class DataStoreLive {
 
     var dependencies: Dependencies
-    private var storage: StorageProtocol { dependencies.storage }
+    private var storage: Storage { dependencies.storage }
 	
 	var favoriteList: FavoriteList = FavoriteList() {
 		didSet {
@@ -83,7 +83,7 @@ public class DataStore {
 }
 
 
-extension DataStore: DataStoreProtocol {
+extension DataStoreLive: DataStore {
 
     // MARK: - external api for data consumption
 

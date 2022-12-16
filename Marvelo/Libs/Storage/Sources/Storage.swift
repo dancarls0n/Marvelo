@@ -1,5 +1,5 @@
 //
-//  StorageProtocol.swift
+//  Storage.swift
 //
 //
 //  Created by Jeff Pedersen on 2022-12-16.
@@ -14,7 +14,7 @@ public enum StorageKey : String {
     case favorites
 }
 
-public protocol StorageProtocol {
+public protocol Storage {
     func save(_ value: Codable, for key: StorageKey)
     func fetchCharacters() -> [Character]?
     func fetchFavorites() -> FavoriteList?
