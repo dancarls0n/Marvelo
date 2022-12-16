@@ -30,6 +30,8 @@ public class CharactersViewController: UIViewController {
 		tableView.dataSource = self
 		tableView.backgroundColor = .white
 		tableView.separatorColor = .gray
+		tableView.estimatedRowHeight = 100
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.separatorStyle = .singleLine
 		tableView.tableFooterView = UIView()
 		tableView.allowsSelection = false
@@ -52,7 +54,7 @@ public class CharactersViewController: UIViewController {
 
 extension CharactersViewController: UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 130
+		return UITableView.automaticDimension
 	}
 }
 

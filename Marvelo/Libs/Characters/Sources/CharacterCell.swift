@@ -12,13 +12,23 @@ import Kingfisher
 class CharacterCell: UITableViewCell {
 	
 	var viewModel: CharacterCellViewModel? { didSet {
-		if let avatarImageUrl = viewModel?.avatarImageUrl {
-//			avatarImageView.kf.setImage(with: avatarImageUrl)
+		var imageUrl = viewModel?.avatarImageUrl?.replacingOccurrences(of: "http", with: "https")
+		if imageUrl != nil { imageUrl! += "/portrait_small.jpg"}
+		if let avatarImageUrl = imageUrl, let avatarUrl = URL(string: avatarImageUrl) {
+			let processor = RoundCornerImageProcessor(cornerRadius: 25)
+			avatarImageView?.kf.setImage(with: avatarUrl, placeholder: UIImage(systemName: "person"), options: [.processor(processor)])
 		}
+		
 		titleLabel.text = viewModel?.name
-		descriptionLabel.text = viewModel?.description
+		if var descriptionText: String = viewModel?.description {
+			if descriptionText.count > 250 {
+				descriptionText = String(descriptionText.prefix(250))
+				descriptionText += "..."
+			}
+			descriptionLabel.text = descriptionText
+		}
 		storiesLabel.text = viewModel?.stories
-		dateLabel.text = viewModel?.date
+		dateLabel.text = viewModel?.date ?? "Date"
 		starImageView.image = viewModel?.starImage
 		}
 	}
@@ -35,21 +45,24 @@ class CharacterCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
-		avatarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+		avatarImageView = UIImageView()
 		titleLabel = UILabel()
 		descriptionLabel = UILabel()
 		storiesLabel = UILabel()
 		dateLabel = UILabel()
-		starImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-		starImageView.heightAnchor.constraint(equalToConstant: 15)
-		starImageView.widthAnchor.constraint(equalToConstant: 15)
-		
+		starImageView = UIImageView()
+				
 		titleLabel.text = "Title"
+		titleLabel.font = .preferredFont(forTextStyle: .body)
+		titleLabel.numberOfLines = 0
+		
 		descriptionLabel.text = "Description"
+		descriptionLabel.font = .preferredFont(forTextStyle: .caption1)
+		descriptionLabel.numberOfLines = 0
 		storiesLabel.text = "Stories"
-		avatarImageView.image = UIImage(systemName: "person")
-		starImageView.image = UIImage(systemName: "star")
+		storiesLabel.font = .preferredFont(forTextStyle: .caption2)
 		dateLabel.text = "Date"
+		dateLabel.font = .preferredFont(forTextStyle: .caption2)
 		
 		let centerStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, storiesLabel])
 		centerStackView.spacing = 2
@@ -58,23 +71,35 @@ class CharacterCell: UITableViewCell {
 		centerStackView.translatesAutoresizingMaskIntoConstraints = false
 		centerStackView.contentCompressionResistancePriority(for: .vertical)
 		centerStackView.setContentCompressionResistancePriority(.required, for: .vertical)
+		centerStackView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 		let rightStackView = UIStackView(arrangedSubviews: [starImageView, dateLabel])
 		rightStackView.axis = .vertical
 		rightStackView.spacing = 3.0
 		rightStackView.translatesAutoresizingMaskIntoConstraints = false
 		rightStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
+		rightStackView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 		contentView.addSubview(avatarImageView)
 		contentView.addSubview(centerStackView)
 		contentView.addSubview(rightStackView)
 		
+	
+		starImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+		starImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
+		starImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+		starImageView.translatesAutoresizingMaskIntoConstraints = false
+		avatarImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		avatarImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+		avatarImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+		avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+		
 		let margins = contentView
 		avatarImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 5.0).isActive = true
+		avatarImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 		centerStackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 5.0).isActive = true
 		centerStackView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-		centerStackView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-		rightStackView.widthAnchor.constraint(equalToConstant: 80.0).isActive = true
-		rightStackView.leadingAnchor.constraint(equalTo: centerStackView.trailingAnchor, constant: 5.0).isActive = true
-		rightStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+		centerStackView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -5.0).isActive = true
+		rightStackView.leadingAnchor.constraint(equalTo: centerStackView.trailingAnchor, constant: -5.0).isActive = true
+		rightStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -5.0).isActive = true
 		rightStackView.topAnchor.constraint(equalTo: centerStackView.topAnchor).isActive = true
 		rightStackView.bottomAnchor.constraint(equalTo: centerStackView.bottomAnchor).isActive = true
 	}
