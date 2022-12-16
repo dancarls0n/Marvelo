@@ -7,19 +7,6 @@
       <FileRef
          location = "group:Marvelo.xcodeproj">
       </FileRef>
-      <Group
-         location = "group:Sources"
-         name = "Documents">
-         <FileRef
-            location = "group:arch_link.txt">
-         </FileRef>
-         <FileRef
-            location = "group:/Users/dcarlson/Desktop/App/Sources/MarvelApiStuff.png">
-         </FileRef>
-         <FileRef
-            location = "group:TODO.md">
-         </FileRef>
-      </Group>
    </Group>
    <FileRef
       location = "group:Marvelo">

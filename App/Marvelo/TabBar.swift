@@ -10,12 +10,27 @@ import UIKit
 import Characters
 import Events
 import Favorites
-import Notifications
+import NotificationClientLive
 
+@MainActor
 class TabBar : UITabBarController {
 		
+  private var newCharacterStream: Task<Void, Never>?
+  private var notificationEventStream: Task<Void, Never>?
+  
 	override func viewDidLoad() {
 		self.setupVCs()
+    
+    newCharacterStream = Task {
+      for await newCharacter in LiveDependencies.shared.notificationClient.newCharacterStream() {
+          print("new Character: \(newCharacter)")
+      }
+    }
+    notificationEventStream = Task {
+      for await event in LiveDependencies.shared.notificationClient.notificationStream() {
+        print("notification event: \(event.description)")
+      }
+    }
 	}
 	
 	fileprivate func prepTabNavController(for rootViewController: UIViewController,

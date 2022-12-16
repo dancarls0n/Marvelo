@@ -19,13 +19,12 @@
 		B4905A8229496FF300B08179 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4905A8029496FF300B08179 /* LaunchScreen.storyboard */; };
 		B4905A8D29496FF300B08179 /* MarveloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4905A8C29496FF300B08179 /* MarveloTests.swift */; };
 		B4BF0FDF294BC74100758F2D /* Characters in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FDE294BC74100758F2D /* Characters */; };
-		B4BF0FE1294BC74100758F2D /* DataStore in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE0294BC74100758F2D /* DataStore */; };
 		B4BF0FE3294BC74100758F2D /* Events in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE2294BC74100758F2D /* Events */; };
 		B4BF0FE5294BC74100758F2D /* Favorites in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE4294BC74100758F2D /* Favorites */; };
-		B4BF0FE7294BC74100758F2D /* Notifications in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE6294BC74100758F2D /* Notifications */; };
-		B4BF0FE9294BC74100758F2D /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FE8294BC74100758F2D /* Storage */; };
 		B4BF0FED294CB3BC00758F2D /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF0FEC294CB3BC00758F2D /* TabBar.swift */; };
-		B4D9A512294A550B00DE79AF /* Secrets in Frameworks */ = {isa = PBXBuildFile; productRef = B4D9A511294A550B00DE79AF /* Secrets */; };
+		B4BF0FFA294D3BB300758F2D /* NotificationClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FF9294D3BB300758F2D /* NotificationClientLive */; };
+		B4BF0FFC294D3C5A00758F2D /* NotificationClient in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FFB294D3C5A00758F2D /* NotificationClient */; };
+		B4BF0FFE294D3C5F00758F2D /* DataStore in Frameworks */ = {isa = PBXBuildFile; productRef = B4BF0FFD294D3C5F00758F2D /* DataStore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +49,10 @@
 		B4905A8829496FF300B08179 /* MarveloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarveloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4905A8C29496FF300B08179 /* MarveloTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarveloTests.swift; sourceTree = "<group>"; };
 		B4BF0FEC294CB3BC00758F2D /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		B4BF0FEF294D337600758F2D /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		B4BF0FF0294D337600758F2D /* arch_link.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arch_link.txt; sourceTree = "<group>"; };
+		B4BF0FF1294D337600758F2D /* send_character.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = send_character.sh; sourceTree = "<group>"; };
+		B4BF0FF2294D337600758F2D /* MarvelApiStuff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MarvelApiStuff.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,17 +60,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4D9A512294A550B00DE79AF /* Secrets in Frameworks */,
 				B4531AB9294A506D0043A5C4 /* Models in Frameworks */,
+				B4BF0FFC294D3C5A00758F2D /* NotificationClient in Frameworks */,
 				B4BF0FDF294BC74100758F2D /* Characters in Frameworks */,
 				B4BF0FE3294BC74100758F2D /* Events in Frameworks */,
+				B4BF0FFE294D3C5F00758F2D /* DataStore in Frameworks */,
 				B4BF0FE5294BC74100758F2D /* Favorites in Frameworks */,
 				B4531AB7294A506D0043A5C4 /* APIClient in Frameworks */,
-				B4BF0FE9294BC74100758F2D /* Storage in Frameworks */,
-				B4BF0FE1294BC74100758F2D /* DataStore in Frameworks */,
+				B4BF0FFA294D3BB300758F2D /* NotificationClientLive in Frameworks */,
 				1F51C417294CBB610047C1E9 /* StorageLive in Frameworks */,
 				1FC3C3DD294CBE5C00DF8AB6 /* DataStoreLive in Frameworks */,
-				B4BF0FE7294BC74100758F2D /* Notifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +93,7 @@
 		B4905A6929496FF200B08179 = {
 			isa = PBXGroup;
 			children = (
+				B4BF0FEE294D337600758F2D /* Documents */,
 				B4905A7429496FF200B08179 /* Marvelo */,
 				B4905A8B29496FF300B08179 /* MarveloTests */,
 				B4905A7329496FF200B08179 /* Products */,
@@ -130,6 +133,17 @@
 			path = MarveloTests;
 			sourceTree = "<group>";
 		};
+		B4BF0FEE294D337600758F2D /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				B4BF0FEF294D337600758F2D /* TODO.md */,
+				B4BF0FF0294D337600758F2D /* arch_link.txt */,
+				B4BF0FF1294D337600758F2D /* send_character.sh */,
+				B4BF0FF2294D337600758F2D /* MarvelApiStuff.png */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,15 +163,14 @@
 			packageProductDependencies = (
 				B4531AB6294A506D0043A5C4 /* APIClient */,
 				B4531AB8294A506D0043A5C4 /* Models */,
-				B4D9A511294A550B00DE79AF /* Secrets */,
 				B4BF0FDE294BC74100758F2D /* Characters */,
-				B4BF0FE0294BC74100758F2D /* DataStore */,
 				B4BF0FE2294BC74100758F2D /* Events */,
 				B4BF0FE4294BC74100758F2D /* Favorites */,
-				B4BF0FE6294BC74100758F2D /* Notifications */,
-				B4BF0FE8294BC74100758F2D /* Storage */,
 				1F51C416294CBB610047C1E9 /* StorageLive */,
 				1FC3C3DC294CBE5C00DF8AB6 /* DataStoreLive */,
+				B4BF0FF9294D3BB300758F2D /* NotificationClientLive */,
+				B4BF0FFB294D3C5A00758F2D /* NotificationClient */,
+				B4BF0FFD294D3C5F00758F2D /* DataStore */,
 			);
 			productName = Marvelo;
 			productReference = B4905A7229496FF200B08179 /* Marvelo.app */;
@@ -554,10 +567,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Characters;
 		};
-		B4BF0FE0294BC74100758F2D /* DataStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataStore;
-		};
 		B4BF0FE2294BC74100758F2D /* Events */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Events;
@@ -566,17 +575,17 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Favorites;
 		};
-		B4BF0FE6294BC74100758F2D /* Notifications */ = {
+		B4BF0FF9294D3BB300758F2D /* NotificationClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Notifications;
+			productName = NotificationClientLive;
 		};
-		B4BF0FE8294BC74100758F2D /* Storage */ = {
+		B4BF0FFB294D3C5A00758F2D /* NotificationClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Storage;
+			productName = NotificationClient;
 		};
-		B4D9A511294A550B00DE79AF /* Secrets */ = {
+		B4BF0FFD294D3C5F00758F2D /* DataStore */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Secrets;
+			productName = DataStore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -28,7 +28,7 @@ public struct APIClient {
 		let hash = MD5("\(timestamp)\(Secrets.marvelAPIKeyPrivate)\(Secrets.marvelAPIKeyPublic)")
 		
 		components?.queryItems = [
-			URLQueryItem(name: "limit", value: "20"),
+			URLQueryItem(name: "limit", value: "100"),
 			URLQueryItem(name: "orderBy", value: "name"),
 			URLQueryItem(name: "ts", value: timestamp),
 			URLQueryItem(name: "hash", value: hash),
@@ -51,7 +51,7 @@ public struct APIClient {
 		let hash = MD5("\(timestamp)\(Secrets.marvelAPIKeyPrivate)\(Secrets.marvelAPIKeyPublic)")
 		
 		components?.queryItems = [
-			URLQueryItem(name: "limit", value: "20"),
+			URLQueryItem(name: "limit", value: "100"),
 			URLQueryItem(name: "orderBy", value: "name"),
 			URLQueryItem(name: "ts", value: timestamp),
 			URLQueryItem(name: "hash", value: hash),
