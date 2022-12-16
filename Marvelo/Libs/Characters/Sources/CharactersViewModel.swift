@@ -15,9 +15,9 @@ public class CharactersViewModel: NSObject {
 		
 	// TODO: Bind to data layer to get updates upon character or favorites changes
 	
-	private var dataStore: DataStore
+	private var dataStore: DataStoreProtocol
 	 
-	init(dataStore: DataStore) {
+	init(dataStore: DataStoreProtocol) {
 		self.dataStore = dataStore
 //		self.getCharactersFromDataStore()
 		//subscribe to async streams from datastore
@@ -25,7 +25,7 @@ public class CharactersViewModel: NSObject {
 	
 	public func getCharactersFromDataStore() {
 		Task {
-			let characters = await dataStore.getCharacters()
+            let characters = await dataStore.getCharacters(refetch: false)
 			self.modelizeCharacters(characters: characters)
 		}
 	}

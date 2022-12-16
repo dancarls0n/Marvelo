@@ -12,17 +12,13 @@ import Models
 import Notifications
 import Storage
 
-// Improvement:
-// Define protocol (interaction functions)
-// Live one is this class
-// Pass in mock for testing
-
-// source of values for entire application
-public var store = DataStore(dependencies: DataStore.Dependencies(storage: Storage()))
-
 extension DataStore {
-    struct Dependencies {
-        var storage: StorageProtocol
+    public struct Dependencies {
+        public var storage: StorageProtocol
+
+        public init(storage: StorageProtocol) {
+            self.storage = storage
+        }
     }
 }
 
@@ -52,7 +48,7 @@ public class DataStore {
 		}
 	}
 	
-    init(dependencies: Dependencies) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
 
 		// fetch from storage
@@ -85,8 +81,10 @@ public class DataStore {
 	public var favoriteStream: AsyncStream<FavoriteList>?
 }
 
-// MARK: - external api for data consumption
-extension DataStore {
+
+extension DataStore: DataStoreProtocol {
+
+    // MARK: - external api for data consumption
 
 	public func getCharacters(refetch: Bool = false) async -> [Character] {
 		guard refetch else { return characters }
@@ -103,10 +101,8 @@ extension DataStore {
 	public func getFavoritesList() -> FavoriteList {
 		return favoriteList
 	}
-}
 
-// MARK: - DataStore changes from UI
-extension DataStore {
+    // MARK: - DataStore changes from UI
 	
 	public func update(updatedCharacter: Character) {
 		// new character
@@ -134,12 +130,8 @@ extension DataStore {
 		//TODO - only replace array if it's different
 		self.favoriteList = favoriteList
 	}
-}
 
-
-// MARK: - API Fetches
-
-extension DataStore {
+    // MARK: - API Fetches
 
 	public func fetchCharactersFromAPI() async {
 			do {

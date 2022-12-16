@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F8F6FA2294CB5ED00C1B8D5 /* LiveDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F6FA1294CB5ED00C1B8D5 /* LiveDependencies.swift */; };
 		B4531AB7294A506D0043A5C4 /* APIClient in Frameworks */ = {isa = PBXBuildFile; productRef = B4531AB6294A506D0043A5C4 /* APIClient */; };
 		B4531AB9294A506D0043A5C4 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = B4531AB8294A506D0043A5C4 /* Models */; };
 		B4905A7629496FF200B08179 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4905A7529496FF200B08179 /* AppDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F8F6FA1294CB5ED00C1B8D5 /* LiveDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDependencies.swift; sourceTree = "<group>"; };
 		B4905A7229496FF200B08179 /* Marvelo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marvelo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4905A7529496FF200B08179 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4905A7729496FF200B08179 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				B4BF0FEC294CB3BC00758F2D /* TabBar.swift */,
 				B4905A7529496FF200B08179 /* AppDelegate.swift */,
+				1F8F6FA1294CB5ED00C1B8D5 /* LiveDependencies.swift */,
 				B4905A7729496FF200B08179 /* SceneDelegate.swift */,
 				B4905A7B29496FF200B08179 /* Main.storyboard */,
 				B4905A7E29496FF300B08179 /* Assets.xcassets */,
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8F6FA2294CB5ED00C1B8D5 /* LiveDependencies.swift in Sources */,
 				B4905A7629496FF200B08179 /* AppDelegate.swift in Sources */,
 				B4905A7829496FF200B08179 /* SceneDelegate.swift in Sources */,
 				B4BF0FED294CB3BC00758F2D /* TabBar.swift in Sources */,
