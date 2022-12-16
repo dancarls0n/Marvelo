@@ -9,13 +9,34 @@ import UIKit
 
 import DataStore
 
+extension CharactersViewController {
+    public struct Dependencies {
+        public var dataStore: DataStore
+
+        public init(dataStore: DataStore) {
+            self.dataStore = dataStore
+        }
+    }
+}
+
 public class CharactersViewController: UIViewController {
-	
+
+    private var dependencies: Dependencies
 	var tableView: UITableView!
 	lazy var viewModel = {
-		CharactersViewModel(dataStore: store)
+        CharactersViewModel(dataStore: dependencies.dataStore)
 	}()
-	
+
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 	override public func viewDidLoad() {
 		super.viewDidLoad()
 		tableView = UITableView(frame: self.view.bounds)

@@ -25,7 +25,7 @@ public class CharactersViewModel: NSObject {
 	
 	public func getCharactersFromDataStore() {
 		Task {
-			let characters = await dataStore.getCharacters()
+            let characters = await dataStore.getCharacters(refetch: false)
 			self.modelizeCharacters(characters: characters)
 		}
 	}
