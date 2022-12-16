@@ -5,9 +5,9 @@
 //  Created by Jeff Pedersen on 2022-12-16.
 //
 
-import DataStore
+import DataStoreLive
 import Foundation
-import Storage
+import StorageLive
 
 public class LiveDependencies {
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import Models
+@_exported import Storage
 
 public struct Storage: StorageProtocol {
 

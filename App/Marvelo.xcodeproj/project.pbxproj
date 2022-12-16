@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F51C417294CBB610047C1E9 /* StorageLive in Frameworks */ = {isa = PBXBuildFile; productRef = 1F51C416294CBB610047C1E9 /* StorageLive */; };
 		1F8F6FA2294CB5ED00C1B8D5 /* LiveDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F6FA1294CB5ED00C1B8D5 /* LiveDependencies.swift */; };
+		1FC3C3DD294CBE5C00DF8AB6 /* DataStoreLive in Frameworks */ = {isa = PBXBuildFile; productRef = 1FC3C3DC294CBE5C00DF8AB6 /* DataStoreLive */; };
 		B4531AB7294A506D0043A5C4 /* APIClient in Frameworks */ = {isa = PBXBuildFile; productRef = B4531AB6294A506D0043A5C4 /* APIClient */; };
 		B4531AB9294A506D0043A5C4 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = B4531AB8294A506D0043A5C4 /* Models */; };
 		B4905A7629496FF200B08179 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4905A7529496FF200B08179 /* AppDelegate.swift */; };
@@ -63,6 +65,8 @@
 				B4531AB7294A506D0043A5C4 /* APIClient in Frameworks */,
 				B4BF0FE9294BC74100758F2D /* Storage in Frameworks */,
 				B4BF0FE1294BC74100758F2D /* DataStore in Frameworks */,
+				1F51C417294CBB610047C1E9 /* StorageLive in Frameworks */,
+				1FC3C3DD294CBE5C00DF8AB6 /* DataStoreLive in Frameworks */,
 				B4BF0FE7294BC74100758F2D /* Notifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +156,8 @@
 				B4BF0FE4294BC74100758F2D /* Favorites */,
 				B4BF0FE6294BC74100758F2D /* Notifications */,
 				B4BF0FE8294BC74100758F2D /* Storage */,
+				1F51C416294CBB610047C1E9 /* StorageLive */,
+				1FC3C3DC294CBE5C00DF8AB6 /* DataStoreLive */,
 			);
 			productName = Marvelo;
 			productReference = B4905A7229496FF200B08179 /* Marvelo.app */;
@@ -528,6 +534,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F51C416294CBB610047C1E9 /* StorageLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StorageLive;
+		};
+		1FC3C3DC294CBE5C00DF8AB6 /* DataStoreLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataStoreLive;
+		};
 		B4531AB6294A506D0043A5C4 /* APIClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = APIClient;

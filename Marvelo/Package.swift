@@ -13,12 +13,14 @@ enum Module: String, CaseIterable {
 	case APIClient
 	case Characters
 	case DataStore
+    case DataStoreLive
 	case Events
 	case Favorites
 	case Models
 	case Notifications
 	case Secrets
 	case Storage
+    case StorageLive
 }
 
 extension Module {
@@ -111,12 +113,17 @@ package.targets += Module.targets {
 		
 	Module.DataStore.target {
 		$0.dependencies += [
-			.module(.APIClient),
 			.module(.Models),
-			.module(.Notifications),
-			.module(.Storage)
 		]
 	}
+
+    Module.DataStoreLive.target {
+        $0.dependencies += [
+            .module(.APIClient),
+            .module(.Notifications),
+            .module(.Storage)
+        ]
+    }
 	
 	Module.Characters.target {
 		$0.dependencies += [
@@ -149,6 +156,12 @@ package.targets += Module.targets {
             .module(.Models)
         ]
 	}
+
+    Module.StorageLive.target {
+        $0.dependencies += [
+            .module(.Storage)
+        ]
+    }
 	
 	// MARK: - Module Test Targets
 	Module.APIClient.testTarget() {

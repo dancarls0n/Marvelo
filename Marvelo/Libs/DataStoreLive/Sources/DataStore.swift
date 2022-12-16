@@ -8,6 +8,7 @@
 import Foundation
 
 import APIClient
+@_exported import DataStore
 import Models
 import Notifications
 import Storage
