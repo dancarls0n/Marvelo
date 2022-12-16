@@ -24,13 +24,16 @@ public class CharactersViewModel: NSObject {
 	}
 
     func startMonitoringDataStore() {
+        // Subscribe for updates.
         charactersStreamTask = Task {
-            let characters = dataStore.getCharacters(refetch: false)
-            modelizeCharacters(characters: characters)
             for await updatedCharacters in dataStore.charactersStream() {
                 modelizeCharacters(characters: updatedCharacters)
             }
         }
+
+        // Get the persisted characters
+        let characters = dataStore.getCharacters(refetch: false)
+        modelizeCharacters(characters: characters)
     }
 
     func stopMonitoringDataStore() {
