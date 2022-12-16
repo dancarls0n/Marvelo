@@ -1,6 +1,5 @@
 #  TODO
 
-### TabBar
 ### Favorites
 ### Events
 ### Character
@@ -11,9 +10,11 @@
 
 ## Notification
 - NotificationView
-- NotificationClient?
-- register (AppDelegate)
-- unregister (AppDelegate)
+- NotificationClient
+- register
+- unregister
+- newNotification
+- asyncSequence - notifications (consumed by data layer?)
 
 ### Data Layer
 - make a 
@@ -24,8 +25,6 @@
 ## Architecture Optimization
 
 ## Tests
-
-
 
 
 
@@ -55,5 +54,5 @@ fetchFavorites
 fetchCharacters
 fetchEvents
 
-## Storage
-https://stackoverflow.com/questions/44876420/save-struct-to-userdefaults
+# TabBar
+# Storage

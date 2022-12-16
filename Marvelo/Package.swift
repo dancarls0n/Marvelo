@@ -145,7 +145,9 @@ package.targets += Module.targets {
 	}
 	
 	Module.Storage.target {
-		$0.dependencies = []
+		$0.dependencies = [
+			.module(.Models)
+		]
 	}
 	
 	// MARK: - Module Test Targets
