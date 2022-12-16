@@ -10,8 +10,13 @@ import Models
 
 public protocol DataStore {
     // MARK: external api for data consumption
-    func getCharacters(refetch: Bool) async -> [Character]
-    func getEvents(refetch: Bool) async -> [Event]
+
+    /// Get Characters. If you specify refetch, the update is delivered on `charactersStream`
+    func getCharacters(refetch: Bool) -> [Character]
+
+    /// Get Events. If you specify refetch, the update is delivered on `eventsStream`
+    func getEvents(refetch: Bool) -> [Event]
+
     func getFavoritesList() -> FavoriteList
 
     // MARK: DataStore changes from UI
@@ -22,4 +27,9 @@ public protocol DataStore {
     // MARK: API Fetches
     func fetchCharactersFromAPI() async
     func fetchEventsFromAPI() async
+
+    // MARK: - AsyncStreams for subscribing to data changes
+    func charactersStream() -> AsyncStream<[Character]>
+    func eventsStream() -> AsyncStream<[Event]>
+    func favoritesStream() -> AsyncStream<FavoriteList>
 }
