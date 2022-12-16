@@ -23,7 +23,7 @@ extension DataStoreLive {
     }
 }
 
-public class DataStoreLive {
+public class DataStoreLive : DataStore {
 
     var dependencies: Dependencies
     private var storage: Storage { dependencies.storage }
@@ -83,7 +83,7 @@ public class DataStoreLive {
 }
 
 
-extension DataStoreLive: DataStore {
+extension DataStoreLive {
 
     // MARK: - external api for data consumption
 
