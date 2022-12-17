@@ -6,7 +6,7 @@ import UIKit
 
 import DataStore
 
-extension CharactersViewController {
+extension EventsViewController {
     public struct Dependencies {
         public var dataStore: DataStore
 
@@ -16,12 +16,12 @@ extension CharactersViewController {
     }
 }
 
-public class CharactersViewController: UIViewController {
+public class EventsViewController: UIViewController {
 
     private var dependencies: Dependencies
 	var tableView: UITableView!
 	lazy var viewModel = {
-        CharactersViewModel(dataStore: dependencies.dataStore)
+        EventsViewModel(dataStore: dependencies.dataStore)
 	}()
 
     public init(dependencies: Dependencies) {
@@ -61,7 +61,7 @@ public class CharactersViewController: UIViewController {
 		tableView.tableFooterView = UIView()
 		tableView.allowsSelection = false
 		
-		tableView.register(CharacterCell.self, forCellReuseIdentifier: CharacterCell.identifier)
+		tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.identifier)
 	}
 	
 	func initViewModel() {
@@ -76,7 +76,7 @@ public class CharactersViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 
-extension CharactersViewController: UITableViewDelegate {
+extension EventsViewController: UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return UITableView.automaticDimension
 	}
@@ -84,13 +84,13 @@ extension CharactersViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension CharactersViewController: UITableViewDataSource {
+extension EventsViewController: UITableViewDataSource {
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.characters.count
+		return viewModel.events.count
 	}
 	
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell else { fatalError("xib does not exists") }
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.identifier, for: indexPath) as? EventCell else { fatalError("xib does not exists") }
 		let cellVM = viewModel.getCellViewModel(at: indexPath)
 		cell.viewModel = cellVM
 		return cell

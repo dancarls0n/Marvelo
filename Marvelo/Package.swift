@@ -130,7 +130,11 @@ package.targets += Module.targets {
     }
     
     Module.Events.target {
-        $0.dependencies = []
+        $0.dependencies += [
+            .module(.DataStore),
+            .module(.Models),
+            .product(name: "Kingfisher", package: "Kingfisher")
+        ]
     }
     
     Module.Favorites.target {

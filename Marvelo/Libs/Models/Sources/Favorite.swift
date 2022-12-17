@@ -1,6 +1,5 @@
 //
-//  Favorite.swift
-//
+//  Favorite.swift//
 //  Created by Dan Carlson on 2022-12-14.
 //
 
@@ -19,4 +18,8 @@ public struct Favorite : Codable {
 public struct FavoriteList : Codable {
 	public init() { }
 	public var favorites:[Favorite] = []
+    
+    public func hasCharacter(with id: Int) -> Bool {
+        return favorites.contains(where: { $0.characterID == id })
+    }
 }
