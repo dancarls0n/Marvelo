@@ -10,24 +10,31 @@ import Kingfisher
 class CharacterCell: UITableViewCell {
 	
 	var viewModel: CharacterCellViewModel? { didSet {
-		var imageUrl = viewModel?.avatarImageUrl?.replacingOccurrences(of: "http", with: "https")
-		if imageUrl != nil { imageUrl! += "/portrait_small.jpg"}
-		if let avatarImageUrl = imageUrl, let avatarUrl = URL(string: avatarImageUrl) {
+        guard let viewModel = viewModel else {
+            avatarImageView.image = nil
+            titleLabel.text = nil
+            descriptionLabel.text = nil
+            storiesLabel.text = nil
+            dateLabel.text = nil
+            starImageView.image = nil
+            return
+        }
+        if let avatarUrl = viewModel.avatarURL {
 			let processor = RoundCornerImageProcessor(cornerRadius: 25)
 			avatarImageView?.kf.setImage(with: avatarUrl, placeholder: UIImage(systemName: "person"), options: [.processor(processor)])
 		}
 		
-		titleLabel.text = viewModel?.name
-		if var descriptionText: String = viewModel?.description {
-			if descriptionText.count > 250 {
-				descriptionText = String(descriptionText.prefix(250))
-				descriptionText += "..."
-			}
-			descriptionLabel.text = descriptionText
-		}
-		storiesLabel.text = viewModel?.stories
-		dateLabel.text = viewModel?.date ?? "Date"
-		starImageView.image = viewModel?.starImage
+		titleLabel.text = viewModel.name
+		var descriptionText: String = viewModel.description
+        if descriptionText.count > 250 {
+            descriptionText = String(descriptionText.prefix(250))
+            descriptionText += "..."
+        }
+        descriptionLabel.text = descriptionText
+    
+		storiesLabel.text = viewModel.stories
+		dateLabel.text = viewModel.date ?? "Date"
+        starImageView.image = viewModel.starImage
 		}
 	}
 	

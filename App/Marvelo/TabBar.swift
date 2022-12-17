@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SwiftUI
 
 import Characters
 import Events
 import Favorites
+import Models
 import NotificationClientLive
 
 @MainActor
@@ -23,7 +25,9 @@ class TabBar : UITabBarController {
         
         newCharacterStream = Task {
             for await newCharacter in LiveDependencies.shared.notificationClient.newCharacterStream() {
-                print("new Character: \(newCharacter)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.displayCharacter(newCharacter)
+                }
             }
         }
         notificationEventStream = Task {
@@ -32,7 +36,7 @@ class TabBar : UITabBarController {
             }
         }
     }
-    
+       
     fileprivate func prepTabNavController(for rootViewController: UIViewController,
                                           title: String,
                                           image: UIImage) -> UIViewController {
@@ -42,6 +46,17 @@ class TabBar : UITabBarController {
         navController.navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.title = title
         return navController
+    }
+    
+    func displayCharacter(_ character: Models.Character) {
+        guard let name = character.name else { return }
+        let characterView = IncomingCharacterView(name: name,
+                                                  imageURL: character.avatarURL,
+                                                  description: character.description,
+                                                  onDismiss: { self.dismiss(animated: true) })
+        let swiftUIController = UIHostingController(rootView: characterView)
+        swiftUIController.modalPresentationStyle = .overFullScreen
+        self.present(swiftUIController, animated: true)
     }
     
     func setupVCs() {

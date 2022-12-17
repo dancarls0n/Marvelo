@@ -67,7 +67,6 @@ public class CharactersViewModel: NSObject {
 	}
 	
 	func createCellModel(character: Character, favorites: FavoriteList) -> CharacterCellViewModel {
-		let avatarUrl = character.thumbnail?.path
 		let name = character.name ?? ""
 		let description = character.description ?? ""
 		let storyCount: Int = character.stories?.items?.count ?? 0
@@ -76,14 +75,14 @@ public class CharactersViewModel: NSObject {
 		let characterInFavorites = favoritesList.favorites.contains(where: { $0.characterID == character.id })
 		let starImage: UIImage = characterInFavorites ? UIImage(systemName: "star.filled")! : UIImage(systemName: "star")!
 		
-		return CharacterCellViewModel(avatarImageUrl: avatarUrl,
-																	name: name,
-																	description: description,
-																	stories: stories,
-																	date: date,
-																	starImage: starImage,
-																	setFavorite: { [weak self] in self?.favoriteCharacter(id: character.id) })
-		
+        return CharacterCellViewModel(avatarURL: character.avatarURL,
+                                      name: name,
+                                      description: description,
+                                      stories: stories,
+                                      date: date,
+                                      starImage: starImage,
+                                      setFavorite: { [weak self] in self?.favoriteCharacter(id: character.id) })
+        
 	}
 	
 	func getCellViewModel(at indexPath: IndexPath) -> CharacterCellViewModel {

@@ -146,7 +146,9 @@ package.targets += Module.targets {
     }
     
     Module.NotificationClient.target {
-        $0.dependencies = []
+        $0.dependencies = [
+            .module(.Models)
+        ]
     }
 
     Module.NotificationClientLive.target {

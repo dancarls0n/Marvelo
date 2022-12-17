@@ -5,7 +5,7 @@
 import UIKit
 
 struct CharacterCellViewModel {
-	var avatarImageUrl: String?
+	var avatarURL: URL?
 	var name: String
 	var description: String
 	var stories: String
