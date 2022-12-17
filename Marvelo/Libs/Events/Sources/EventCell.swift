@@ -40,7 +40,6 @@ class EventCell: UITableViewCell {
                     return
                 }
                 characterString += " " + name + ","
-                
 //                TODO: Characters embedded in events DO NOT HAVE IDs!
 //                guard let characterId = character.id, let name = character.name else {
 //                    return
@@ -82,6 +81,7 @@ class EventCell: UITableViewCell {
         comicsLabel.text = "Stories"
         comicsLabel.font = .preferredFont(forTextStyle: .caption2)
         charactersLabel.numberOfLines = 0
+        charactersLabel.font = .preferredFont(forTextStyle: .footnote)
         
         let centerStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, comicsLabel, charactersLabel])
         centerStackView.spacing = 2

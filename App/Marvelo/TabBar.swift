@@ -57,8 +57,15 @@ class TabBar : UITabBarController {
             prepTabNavController(for: EventsViewController(
                 dependencies: EventsViewController.Dependencies(
                     dataStore: LiveDependencies.shared.dataStore
-                )), title: "Events", image: UIImage(systemName: "figure.run.square.stack.fill")!),
-            prepTabNavController(for: FavoritesViewController(), title: "Favorites", image: UIImage(systemName: "star.square.on.square.fill")!)
+                )
+            ),
+                title: "Events", image: UIImage(systemName: "figure.run.square.stack.fill")!),
+            prepTabNavController(for: FavoritesViewController(
+                dependencies: FavoritesViewController.Dependencies(
+                    dataStore: LiveDependencies.shared.dataStore
+                )
+            ),
+                title: "Favorites", image: UIImage(systemName: "star.square.on.square.fill")!)
         ]
     }
     
