@@ -18,7 +18,7 @@ public protocol DataStore {
     func getEvents(refetch: Bool) -> [Event]
 
     func getFavoritesList() -> FavoriteList
-
+    
     // MARK: DataStore changes from UI
     func update(updatedCharacter: Character)
     func setFavorite(characterID: Int) async

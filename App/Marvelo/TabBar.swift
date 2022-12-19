@@ -26,7 +26,7 @@ class TabBar : UITabBarController {
         newCharacterStream = Task {
             for await newCharacter in LiveDependencies.shared.notificationClient.newCharacterStream() {
                 DispatchQueue.main.async { [weak self] in
-                    self?.displayCharacter(newCharacter)
+                    self?.displayIncomingCharacter(newCharacter)
                 }
             }
         }
@@ -48,7 +48,7 @@ class TabBar : UITabBarController {
         return navController
     }
     
-    func displayCharacter(_ character: Models.Character) {
+    func displayIncomingCharacter(_ character: Models.Character) {
         guard let name = character.name else { return }
         let characterView = IncomingCharacterView(name: name,
                                                   imageURL: character.avatarURL,
@@ -56,6 +56,16 @@ class TabBar : UITabBarController {
                                                   onDismiss: { self.dismiss(animated: true) })
         let swiftUIController = UIHostingController(rootView: characterView)
         swiftUIController.modalPresentationStyle = .overFullScreen
+        self.present(swiftUIController, animated: true)
+    }
+       
+    func displaySoloCharacter(_ character: Models.Character) {
+        guard let name = character.name else { return }
+        let soloCharacterView = SoloCharacterView(name: name,
+                                                  imageURL: character.avatarURL,
+                                                  onDismiss: { self.dismiss(animated: true) })
+        let swiftUIController = UIHostingController(rootView: soloCharacterView)
+        swiftUIController.modalPresentationStyle = .pageSheet
         self.present(swiftUIController, animated: true)
     }
     
